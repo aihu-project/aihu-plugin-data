@@ -1,4 +1,4 @@
-# @aihu/data
+# @aihu-plugin/data
 
 > **Aihu** — agentic discovery and interaction, for human purpose.
 
@@ -16,12 +16,12 @@ _(Hand-written prose lives in this block. Replace this placeholder; everything b
 <!-- regenerate: bun scripts/sync-readme.ts (also runs in pre-commit + CI) -->
 
 ```bash
-npm install @aihu/data
+npm install @aihu-plugin/data
 # or
-bun add @aihu/data
+bun add @aihu-plugin/data
 ```
 
-<sub><i>Auto-generated against `@aihu/data@0.1.0`.</i></sub>
+<sub><i>Auto-generated against `@aihu-plugin/data@1.0.0`.</i></sub>
 
 <!-- END_AUTOGEN: install -->
 
@@ -32,13 +32,13 @@ bun add @aihu/data
 
 | | |
 |---|---|
-| **Version** | `0.1.0` |
+| **Version** | `1.0.0` |
 | **Tier** | B — Meta-framework — reactive resources + loader protocol |
 | **Bundle size** | 756 B (gz) — limit 800 B |
 | **Published files** | 3 entries |
 | **License** | MIT |
 
-<sub><i>Auto-generated against `@aihu/data@0.1.0`.</i></sub>
+<sub><i>Auto-generated against `@aihu-plugin/data@1.0.0`.</i></sub>
 
 <!-- END_AUTOGEN: stats -->
 
@@ -51,7 +51,7 @@ bun add @aihu/data
 |---|---|---|
 | `.` | `./dist/index.js` | `—` |
 
-<sub><i>Auto-generated against `@aihu/data@0.1.0`.</i></sub>
+<sub><i>Auto-generated against `@aihu-plugin/data@1.0.0`.</i></sub>
 
 <!-- END_AUTOGEN: exports -->
 
@@ -65,7 +65,7 @@ bun add @aihu/data
 - `@aihu/signals` — `workspace:*`
 - `@aihu/context` — `workspace:*`
 
-<sub><i>Auto-generated against `@aihu/data@0.1.0`.</i></sub>
+<sub><i>Auto-generated against `@aihu-plugin/data@1.0.0`.</i></sub>
 
 <!-- END_AUTOGEN: deps -->
 
@@ -78,7 +78,7 @@ bun add @aihu/data
 - [@aihu/context](../context)
 - [Aihu framework root](../../README.md)
 
-<sub><i>Auto-generated against `@aihu/data@0.1.0`.</i></sub>
+<sub><i>Auto-generated against `@aihu-plugin/data@1.0.0`.</i></sub>
 
 <!-- END_AUTOGEN: see-also -->
 
@@ -89,6 +89,6 @@ bun add @aihu/data
 
 MIT — see [LICENSE](../../LICENSE).
 
-<sub><i>Auto-generated against `@aihu/data@0.1.0`.</i></sub>
+<sub><i>Auto-generated against `@aihu-plugin/data@1.0.0`.</i></sub>
 
 <!-- END_AUTOGEN: license -->
