@@ -56,5 +56,21 @@ jobs:
             echo 'An npm auth token is configured; refusing to mix token auth with OIDC.'
             exit 1
           }
+      - name: Fail closed if this version is already published
+        run: |
+          set -euo pipefail
+          package_name="$(node -p "require('./package.json').name")"
+          package_version="$(node -p "require('./package.json').version")"
+          view_error="$(mktemp)"
+          trap 'rm -f "$view_error"' EXIT
+          if npm view "${package_name}@${package_version}" version --registry "$NPM_REGISTRY" >/dev/null 2>"$view_error"; then
+            echo "${package_name}@${package_version} is already published; refusing to republish"
+            exit 1
+          elif grep -Eq 'E404|404 Not Found' "$view_error"; then
+            echo "${package_name}@${package_version} is unpublished"
+          else
+            cat "$view_error"
+            exit 1
+          fi
       - name: Publish with provenance
         run: npm publish --access public --provenance --registry "$NPM_REGISTRY"
