@@ -1,0 +1,40 @@
+{
+  "only": ["ts", "js", "json", "yml", "yaml", "md", "txt"],
+  "exclude": ["node_modules", "dist", "coverage"],
+  "depth": 4,
+  "budgets": {},
+  "routing": {
+    "subsystems": [
+      {
+        "name": "public-api-and-runtime",
+        "paths": ["src/**/*.ts", "tests/**/*.ts", "package.json", "rolldown.config.ts"],
+        "keywords": [
+          "@aihu-plugin/data",
+          "createResource",
+          "ResourceStoreToken",
+          "exports",
+          "dist"
+        ],
+        "docs": ["README.md", "llms.txt"],
+        "note": "The API contract crosses TypeScript exports, package metadata, and generated dist files; codemap cannot follow export-map and published-file strings as imports."
+      },
+      {
+        "name": "release-and-provenance",
+        "paths": ["package.json", ".github/workflows/*.yml", "scripts/**/*.ts", "README.md"],
+        "keywords": [
+          "workspace:",
+          "provenance",
+          "id-token",
+          "npm publish",
+          "check:packed-manifest"
+        ],
+        "docs": ["README.md"],
+        "note": "Release safety is governed by matching names, versions, packed files, and workflow permissions; these are string couplings with no import edge for codemap to resolve."
+      }
+    ]
+  },
+  "drift": {
+    "require_docs_for": ["public-api-and-runtime", "release-and-provenance"]
+  },
+  "guidance": {}
+}

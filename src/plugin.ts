@@ -4,8 +4,8 @@ import type { Plugin } from '@aihu/plugin'
  * `@aihu-plugin/data` plugin — registration shim.
  *
  * Registers the data package under the Plugin Contract (Plugin Contract Spec
- * §1.1, §3, §7.1). v0.2.6 ships registration plumbing only; no macro
- * contributions are wired until v0.4 lowers `$resource`.
+ * §1.1, §3, §7.1). This release ships registration plumbing only; no macro
+ * contributions are wired until a future compiler release lowers `$resource`.
  *
  * We construct the Plugin object directly (satisfying the `Plugin` type
  * contract by including `__aihu_plugin: true`) rather than calling

@@ -35,8 +35,12 @@ export function createResource<T>(
 ): Resource<T> {
   // 1. Resolve the cache store (injection happens at createResource call time,
   //    i.e. during component setup — matching @aihu/context's sync model).
-  const store: ResourceStore =
-    options?.store ?? inject(ResourceStoreToken) ?? (_defaultStore ??= createResourceStore())
+  let resolvedStore: ResourceStore | undefined = options?.store ?? inject(ResourceStoreToken)
+  if (!resolvedStore) {
+    _defaultStore ??= createResourceStore()
+    resolvedStore = _defaultStore
+  }
+  const store: ResourceStore = resolvedStore
 
   // 2. Determine initial state.
   const initialState: DataState<T> =

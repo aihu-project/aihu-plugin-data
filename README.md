@@ -4,7 +4,10 @@
 
 Reactive data loaders and resource primitives for aihu.
 
-Part of the **meta-framework** layer of Aihu. Provides whole-app capability — file-based routing, SSR, loaders, cookies — without the boilerplate other meta-frameworks impose. See [arch-1](../../docs/roadmap/arch-1-website.md) for the meta-framework contract.
+Part of the **meta-framework** layer of Aihu. Provides reactive data loading,
+resource caching, and SSR dehydration helpers for Aihu applications. See the
+[data-fetching guide](https://aihu.dev/guides/data-fetching) for the framework
+contract.
 
 <!-- BEGIN_HANDWRITTEN: prose -->
 _(Hand-written prose lives in this block. Replace this placeholder; everything below is auto-generated.)_
@@ -21,7 +24,7 @@ npm install @aihu-plugin/data
 bun add @aihu-plugin/data
 ```
 
-<sub><i>Auto-generated against `@aihu-plugin/data@2.0.5`.</i></sub>
+<sub><i>Auto-generated against `@aihu-plugin/data@2.0.6`.</i></sub>
 
 <!-- END_AUTOGEN: install -->
 
@@ -32,13 +35,13 @@ bun add @aihu-plugin/data
 
 | | |
 |---|---|
-| **Version** | `2.0.5` |
+| **Version** | `2.0.6` |
 | **Tier** | B — Meta-framework — reactive resources + loader protocol |
-| **Bundle size** | 723 B (gz) — limit 800 B |
+| **Bundle size** | 769 B (gz) — limit 800 B |
 | **Published files** | 3 entries |
 | **License** | MIT |
 
-<sub><i>Auto-generated against `@aihu-plugin/data@2.0.5`.</i></sub>
+<sub><i>Auto-generated against `@aihu-plugin/data@2.0.6`.</i></sub>
 
 <!-- END_AUTOGEN: stats -->
 
@@ -51,7 +54,7 @@ bun add @aihu-plugin/data
 |---|---|---|
 | `.` | `./dist/index.js` | `—` |
 
-<sub><i>Auto-generated against `@aihu-plugin/data@2.0.5`.</i></sub>
+<sub><i>Auto-generated against `@aihu-plugin/data@2.0.6`.</i></sub>
 
 <!-- END_AUTOGEN: exports -->
 
@@ -63,9 +66,9 @@ bun add @aihu-plugin/data
 **Dependencies:**
 
 - `@aihu/signals` — `^0.5.1`
-- `@aihu/context` — `workspace:*`
+- `@aihu/context` — `^0.2.0`
 
-<sub><i>Auto-generated against `@aihu-plugin/data@2.0.5`.</i></sub>
+<sub><i>Auto-generated against `@aihu-plugin/data@2.0.6`.</i></sub>
 
 <!-- END_AUTOGEN: deps -->
 
@@ -75,10 +78,10 @@ bun add @aihu-plugin/data
 <!-- regenerate: bun scripts/sync-readme.ts (also runs in pre-commit + CI) -->
 
 - [Data-fetching guide](https://aihu.dev/guides/data-fetching)
-- [@aihu/context](../context)
-- [Aihu framework root](../../README.md)
+- [@aihu/context](https://www.npmjs.com/package/@aihu/context)
+- [Aihu framework](https://aihu.dev)
 
-<sub><i>Auto-generated against `@aihu-plugin/data@2.0.5`.</i></sub>
+<sub><i>Auto-generated against `@aihu-plugin/data@2.0.6`.</i></sub>
 
 <!-- END_AUTOGEN: see-also -->
 
@@ -87,8 +90,8 @@ bun add @aihu-plugin/data
 <!-- BEGIN_AUTOGEN: license -->
 <!-- regenerate: bun scripts/sync-readme.ts (also runs in pre-commit + CI) -->
 
-MIT — see [LICENSE](../../LICENSE).
+MIT — see [LICENSE](./LICENSE).
 
-<sub><i>Auto-generated against `@aihu-plugin/data@2.0.5`.</i></sub>
+<sub><i>Auto-generated against `@aihu-plugin/data@2.0.6`.</i></sub>
 
 <!-- END_AUTOGEN: license -->

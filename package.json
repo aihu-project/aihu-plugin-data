@@ -1,6 +1,6 @@
 {
   "name": "@aihu-plugin/data",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -21,24 +21,37 @@
   "scripts": {
     "build": "rolldown -c",
     "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "check:release-version": "bun scripts/check-release-version.ts",
+    "check:packed-manifest": "bun scripts/check-packed-manifest.ts",
+    "check:ci": "bunx biome ci . && bun run typecheck && bun run test && bun run build && bun run check:packed-manifest",
     "prepublishOnly": "bun run build"
   },
   "dependencies": {
     "@aihu/signals": "^0.5.1",
-    "@aihu/context": "workspace:*"
+    "@aihu/context": "^0.2.0"
   },
   "devDependencies": {
-    "@aihu/plugin": "workspace:*",
-    "@aihu/server": "workspace:*"
+    "@aihu/plugin": "^0.1.1",
+    "@aihu/server": "^0.6.0",
+    "@biomejs/biome": "2.4.14",
+    "@types/node": "^20.16.5",
+    "rolldown": "^1.0.0-rc.17",
+    "rolldown-plugin-dts": "^0.23.2",
+    "typescript": "^5.6.2",
+    "vitest": "^3.2.6"
   },
   "description": "Reactive data loaders and resource primitives for aihu.",
+  "engines": {
+    "bun": ">=1.3.0",
+    "node": ">=20.18.0"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aihu-project/aihu.git",
-    "directory": "packages/plugin-data"
+    "url": "git+https://github.com/aihu-project/aihu-plugin-data.git"
   },
-  "homepage": "https://github.com/aihu-project/aihu/tree/main/packages/plugin-data#readme",
-  "bugs": "https://github.com/aihu-project/aihu/issues",
+  "homepage": "https://github.com/aihu-project/aihu-plugin-data#readme",
+  "bugs": "https://github.com/aihu-project/aihu-plugin-data/issues",
   "publishConfig": {
     "access": "public"
   }

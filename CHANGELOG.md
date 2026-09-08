@@ -1,5 +1,11 @@
 # @aihu-plugin/data
 
+## 2.0.6
+
+### Patch Changes
+
+- Prepare the standalone package release with registry dependency ranges, a portable test/build setup, and corrected package documentation.
+
 ## 2.0.5
 
 ### Patch Changes
