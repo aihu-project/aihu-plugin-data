@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process'
-import { mkdirSync, mkdtempSync, readFileSync, renameSync, rmSync } from 'node:fs'
+import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 
@@ -134,7 +134,10 @@ try {
 
   const generatedArchive = join(tempDir, entry.filename)
   const archive = requestedArchive ?? generatedArchive
-  if (requestedArchive) renameSync(generatedArchive, requestedArchive)
+  if (requestedArchive) {
+    copyFileSync(generatedArchive, requestedArchive)
+    rmSync(generatedArchive)
+  }
   const packed = readJsonFromArchive(archive)
   if (packed.name !== source.name || packed.version !== source.version) {
     throw new Error(
