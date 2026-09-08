@@ -44,18 +44,9 @@ jobs:
         run: bun run check:ci
       - name: Fail closed unless npm trusted publishing is configured
         env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          set -euo pipefail
-          test -z "${NPM_TOKEN:-}" || {
-            echo 'NPM_TOKEN must be unset; this workflow only publishes through npm trusted publishing (OIDC).'
-            exit 1
-          }
-          auth_config="$(npm config get //registry.npmjs.org/:_authToken 2>/dev/null || true)"
-          test -z "$auth_config" -o "$auth_config" = "undefined" || {
-            echo 'An npm auth token is configured; refusing to mix token auth with OIDC.'
-            exit 1
-          }
+        run: bun run check:oidc-auth
       - name: Fail closed if this version is already published
         run: |
           set -euo pipefail
