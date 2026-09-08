@@ -2,8 +2,6 @@ import { execFileSync } from 'node:child_process'
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
-const OIDC_PLACEHOLDER = '${NODE_AUTH_TOKEN}'
-
 export function inspectOidcAuth(
   environment: Record<string, string | undefined>,
   npmrcContents: readonly string[],
@@ -17,13 +15,8 @@ export function inspectOidcAuth(
       if (!line || line.startsWith('#') || line.startsWith(';')) continue
 
       for (const key of ['_authToken', '_auth']) {
-        const keyIndex = line.indexOf(key)
-        if (keyIndex < 0) continue
-        const equalsIndex = line.indexOf('=', keyIndex + key.length)
-        if (equalsIndex < 0) continue
-        const value = line.slice(equalsIndex + 1).trim()
-        if (value !== OIDC_PLACEHOLDER) {
-          return `npmrc contains a non-OIDC ${key} value; refusing token-authenticated publish`
+        if (line.includes(key)) {
+          return `npmrc contains an ${key} value; refusing token-authenticated publish`
         }
       }
     }
