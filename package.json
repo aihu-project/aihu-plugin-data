@@ -24,6 +24,7 @@
     "test": "vitest run",
     "check:release-version": "bun scripts/check-release-version.ts",
     "check:packed-manifest": "bun scripts/check-packed-manifest.ts",
+    "check:oidc-auth": "bun scripts/check-oidc-auth.ts",
     "check:ci": "bunx biome ci . && bun run typecheck && bun run test && bun run build && bun run check:packed-manifest",
     "prepublishOnly": "bun run build"
   },

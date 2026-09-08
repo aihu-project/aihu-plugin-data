@@ -44,17 +44,24 @@ jobs:
         run: bun run check:ci
       - name: Fail closed unless npm trusted publishing is configured
         env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: bun run check:oidc-auth
+      - name: Fail closed if this version is already published
         run: |
           set -euo pipefail
-          test -z "${NPM_TOKEN:-}" || {
-            echo 'NPM_TOKEN must be unset; this workflow only publishes through npm trusted publishing (OIDC).'
+          package_name="$(node -p "require('./package.json').name")"
+          package_version="$(node -p "require('./package.json').version")"
+          view_error="$(mktemp)"
+          trap 'rm -f "$view_error"' EXIT
+          if npm view "${package_name}@${package_version}" version --registry "$NPM_REGISTRY" >/dev/null 2>"$view_error"; then
+            echo "${package_name}@${package_version} is already published; refusing to republish"
             exit 1
-          }
-          auth_config="$(npm config get //registry.npmjs.org/:_authToken 2>/dev/null || true)"
-          test -z "$auth_config" -o "$auth_config" = "undefined" || {
-            echo 'An npm auth token is configured; refusing to mix token auth with OIDC.'
+          elif grep -Eq 'E404|404 Not Found' "$view_error"; then
+            echo "${package_name}@${package_version} is unpublished"
+          else
+            cat "$view_error"
             exit 1
-          }
+          fi
       - name: Publish with provenance
         run: npm publish --access public --provenance --registry "$NPM_REGISTRY"

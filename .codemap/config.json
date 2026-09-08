@@ -20,7 +20,12 @@
       },
       {
         "name": "release-and-provenance",
-        "paths": ["package.json", ".github/workflows/*.yml", "scripts/**/*.ts", "README.md"],
+        "paths": [
+          "package.json",
+          ".github/workflows/*.yml",
+          "scripts/**/*.ts",
+          "docs/release-contract.md"
+        ],
         "keywords": [
           "workspace:",
           "provenance",
@@ -28,7 +33,7 @@
           "npm publish",
           "check:packed-manifest"
         ],
-        "docs": ["README.md"],
+        "docs": ["docs/release-contract.md"],
         "note": "Release safety is governed by matching names, versions, packed files, and workflow permissions; these are string couplings with no import edge for codemap to resolve."
       }
     ]
