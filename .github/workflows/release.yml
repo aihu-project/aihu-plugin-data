@@ -14,6 +14,7 @@ concurrency:
 
 env:
   NPM_REGISTRY: https://registry.npmjs.org
+  RELEASE_TARBALL: ${{ github.workspace }}/.release/aihu-plugin-data-release.tgz
 
 jobs:
   publish:
@@ -33,7 +34,11 @@ jobs:
       - uses: actions/setup-node@v7.0.0
         with:
           node-version: 24.14.0
-          registry-url: ${{ env.NPM_REGISTRY }}
+      - name: Install pinned npm
+        run: |
+          set -euo pipefail
+          npm install --global npm@11.5.1
+          test "$(npm --version)" = "11.5.1"
       - name: Install dependencies
         run: bun install --frozen-lockfile
       - name: Verify tag matches package version
@@ -64,4 +69,8 @@ jobs:
             exit 1
           fi
       - name: Publish with provenance
-        run: npm publish --access public --provenance --registry "$NPM_REGISTRY"
+        run: |
+          set -euo pipefail
+          unset NODE_AUTH_TOKEN NPM_TOKEN
+          test -f "$RELEASE_TARBALL"
+          npm publish "$RELEASE_TARBALL" --access public --provenance --registry "$NPM_REGISTRY"

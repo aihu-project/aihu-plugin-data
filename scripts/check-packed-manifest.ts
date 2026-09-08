@@ -1,7 +1,7 @@
 import { execFileSync } from 'node:child_process'
-import { mkdtempSync, readFileSync, rmSync } from 'node:fs'
+import { mkdirSync, mkdtempSync, readFileSync, renameSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
-import { join } from 'node:path'
+import { dirname, join } from 'node:path'
 
 const dependencySections = [
   'dependencies',
@@ -117,9 +117,14 @@ function readJsonFromArchive(archive: string): PackageManifest {
   ) as PackageManifest
 }
 
+const requestedArchive = process.argv[2] || process.env.RELEASE_TARBALL
 const tempDir = mkdtempSync(join(tmpdir(), 'aihu-plugin-data-pack-'))
 const source = readJson('package.json')
 try {
+  if (requestedArchive) {
+    mkdirSync(dirname(requestedArchive), { recursive: true })
+    rmSync(requestedArchive, { force: true })
+  }
   const raw = execFileSync('npm', ['pack', '--json', '--pack-destination', tempDir], {
     encoding: 'utf8',
     stdio: ['ignore', 'pipe', 'inherit'],
@@ -127,7 +132,9 @@ try {
   const [entry] = JSON.parse(raw) as Array<{ filename?: string }>
   if (!entry?.filename) throw new Error('npm pack did not return an artifact filename')
 
-  const archive = join(tempDir, entry.filename)
+  const generatedArchive = join(tempDir, entry.filename)
+  const archive = requestedArchive ?? generatedArchive
+  if (requestedArchive) renameSync(generatedArchive, requestedArchive)
   const packed = readJsonFromArchive(archive)
   if (packed.name !== source.name || packed.version !== source.version) {
     throw new Error(
