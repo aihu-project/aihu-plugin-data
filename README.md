@@ -10,7 +10,48 @@ resource caching, and SSR dehydration helpers for Aihu applications. See the
 contract.
 
 <!-- BEGIN_HANDWRITTEN: prose -->
-_(Hand-written prose lives in this block. Replace this placeholder; everything below is auto-generated.)_
+A signal-native, backend-agnostic data-fetching primitive.
+
+## API
+
+**Primary API**
+
+- `createResource(key, fetcher, options?)` — creates a reactive `Resource<T>`.
+  `key` is a `Signal<string | null | undefined>` whose current value is the
+  cache key (a `null`/`undefined` key keeps the resource idle); `fetcher` is
+  any `(key: string) => Promise<T>`. The returned `Resource<T>` has a
+  `state: Signal<DataState<T>>` (a discriminated union over `idle`, `loading`,
+  `ready`, `error`, and a reserved `streaming` case for future adapters),
+  plus `refetch()` and `invalidate()` controls.
+
+**Cache**
+
+- `createResourceStore()` — creates a `ResourceStoreWithMeta` cache instance.
+- `ResourceStoreToken` — `@aihu/context` injection token for supplying a
+  store to `createResource` without threading it through every call.
+
+**SSR dehydration**
+
+- `createResourceSerializer(store)` — returns a `() => Record<string, unknown>`
+  that serializes resources created with `{ dehydrate: true }` for SSR.
+
+**Plugin registration**
+
+- `data()` — plugin factory; registers `@aihu-plugin/data` via
+  `defineAihuConfig({ plugins: [data()] })` (Plugin Contract Spec §3, §7.1).
+
+```ts
+// aihu.config.ts
+import { data } from '@aihu-plugin/data'
+import { defineAihuConfig } from '@aihu/server'
+
+export default defineAihuConfig({
+  plugins: [data()],
+})
+```
+
+Runtime dependencies are `@aihu/signals` and `@aihu/context` only; `@aihu/plugin`
+is build/dev-time only and is not bundled into the runtime output.
 <!-- END_HANDWRITTEN: prose -->
 
 ## Install
